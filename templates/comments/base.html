@@ -1,0 +1,30 @@
+{% load comments_tags %}
+
+<section id="comments" class="my-5 mx-3">
+        <script>window.CSRF_TOKEN = "{{ csrf_token }}" </script>
+
+
+        <div class="border-bottom mb-4">
+            <strong class="bb">
+                <span class="">{% get_comments_count model_object user %}</span>
+                <span>Comments</span>
+            </strong>
+        </div>    
+
+        {% include 'comments/messages.html' %}
+
+        <div mb-5>
+            {% include 'comments/create_comment.html' with placeholder=parent_placeholder  comment=None %}
+        </div>
+        <div class="mt-5">
+            {% for comment in comments %}   
+                {% include  'comments/parent_comment.html' %}
+            {% endfor%}            
+        </div>
+
+
+        {% if comments.paginator.num_pages > 1 %}
+            {% include 'comments/pagination.html' with active_btn='bg-success' text_style='text-success' li_cls='page-item rounded mx-1' %}
+        {% endif %}
+
+</section>

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+
+
+
+{% block content %}
+
+
+    <div class="container-fluid">
+        <div class="row bg-light"> 
+            <div class="col-md-6 col-sm-8 my-5">
+                    {% if article_list %}
+                        <h3 class="text-muted bg-light py-2 pl-2">List of all posts</h3>
+                    {% else %}
+                        <h3 class="text-muted bg-light py-2 pl-2">Currently there are no posts</h3>
+                    {% endif %}
+
+                    {% for article in article_list %}    
+                        {% load_article_detail request article True user %}
+                    {% endfor %}  
+            </div>                    
+        </div>
+    </div>
+    
+
+
+
+
+
+{% endblock %}

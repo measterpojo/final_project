@@ -1,0 +1,9 @@
+
+{% load core_tags %}
+
+
+{% for field in comment_form.visible_fields %}
+
+    {% render_field field placeholder=placeholder class='form-control from-control-sm rounded-0' %}
+
+{% endfor %}

@@ -1,0 +1,19 @@
+
+
+
+<form method="POST" enctype="multipart/form-data"  >
+
+Edit
+
+<!-- Security token -->
+{% csrf_token %}
+
+<!-- Using the formset -->
+
+
+{{ article_form }}
+
+ 
+<input type="submit" value="Submit">
+</form>
+

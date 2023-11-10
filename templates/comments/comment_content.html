@@ -1,0 +1,59 @@
+{% load comments_tags %}
+{% load core_tags %}
+
+
+<div class="{% if has_valid_profile %}col-9 col-md-10{% else %}col-11 mx-3{% endif %}">
+
+    {% if render_markdown %}
+        {% render_content comment markdown=True %}
+    {% else %}
+        {% render_content comment markdown=False %}
+    {% endif %}
+    
+    <{% if comment.user %}a{% else %}span{% endif %}/>
+        {{ comment.user.name }}
+    </{% if comment.user %}a{% else %}span{% endif %}> |
+
+        {% if comment.is_edited %}
+            <span class="font-italic" title="Edited">Edited: {{comment.edited}} ago</span>
+        {% else %}
+            <span class="font-italic" title=Posted>Posted: {{ comment.posted }} ago</span>
+        {% endif %}
+
+    <div class="mt-2 text-muted">
+
+
+        {% can_delete comment user as can_delete_comment %}
+            {% if comment.user == user %}
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ModalComment" data-comment-id="{{ comment.pk }}">
+                    update
+                </button>
+
+                {% include 'comments/update_comment.html' with comment=comment %}
+
+
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCommentDelete" data-comment-id="{{ comment.pk }}">
+                    Delete
+                </button>
+                 <!-- MODAL -->               
+                {% include 'comments/delete_comment.html' with comment=comment %}
+            {% elif can_delete %}
+                <!-- ADMIN OPTIONS 
+                FLAG AND BLOCK  -->
+            {% endif %}
+            {% if comment.is_parent %}
+                {% get_replies_count comment user as reply_count %}
+                | <span class="text-dark">{{ reply_count }}</span>
+                <a class="js-reply-link btn btn-link ml-1" href="#">
+                    Replies
+                </a>
+            {% endif %}
+
+            {% include 'reactions/comments/reactions.html' with obj=comment %}
+
+
+    </div>
+</div>
+
+
+

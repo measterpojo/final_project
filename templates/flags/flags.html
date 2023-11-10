@@ -1,0 +1,25 @@
+{% load core_tags %}
+
+{% url 'flag:comment-flag' pk=comment.id as flag_url %}
+
+
+{% if user.is_authenticated %}
+
+<!-- Button trigger modal -->
+<button type="button" class="" data-bs-toggle="modal" data-bs-target="#flagmodal" data-comment-id="{{ comment.pk }}">
+    {% include "flags/flag_icon.html" %}
+</button>
+  
+{% else %}
+    <a href="{{ login_url }}"></a>
+    {% include "flags/flag_icon.html" %}
+
+    </a>
+{% endif %}
+
+
+
+
+
+<!-- "js-comment-flag" -->
+<!-- comment-flag-icon -->

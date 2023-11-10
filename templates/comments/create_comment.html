@@ -1,0 +1,25 @@
+{% load comments_tags %}
+{% load core_tags %}
+
+<form class="js-comment-form" method="post" action="{% url 'comment:create' %}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="">
+            {% include 'comments/comment_form.html' with placeholder=placeholder %}
+        </div>
+        
+        <input name="model_name" value="{% get_model_name model_object %}" hidden>
+        <input name="model_id" value="{{ model_object.id }}" hidden>
+        <input name="app_name" value="{% get_app_name model_object %}" hidden>
+ 
+        <input name="oauth" value="{{ oauth }}" hidden>
+        {% if comment %}
+            <input name="parent_id" value="{{ comment.id }}" hidden>
+        {% endif %}
+        <div>
+            <button type="submit">
+                {% if comment %}Reply{% else %}Comment{% endif %}
+            </button>
+        </div>
+    </div>
+</form>

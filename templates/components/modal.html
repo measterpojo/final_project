@@ -1,0 +1,93 @@
+{% load blog_tags %}
+{% load core_tags %}
+
+  <!-- FLAG MODAL -->
+  <div class="modal fade" id="flagmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticflagmodal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="comment-translatable modal-title">Please select a reason for flagging</h5>
+        </div>
+        <div class="modal-body">
+          {% render_flag_reasons as reasons %}
+          <form method="POST">
+            {% csrf_token %}
+            {% for reason in reasons %}
+            <label>
+                <input class="mr-2 flag-reason {% if forloop.last %}flag-last-reason{% endif %}" type="radio" value="{{ reason.value }}" name="reason" required>{{ reason.reason }}
+            </label><br>
+            {% endfor %}
+            <textarea class="flag-modal-info" rows="10" cols="10" name="info"></textarea>
+            <div class="modal-footer">
+              <button type="submit" title="flag" class="btn btn-danger">Flag</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>                     
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- CREATE MODAL -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabels" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Create
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          {% include 'blog/create_blog.html' %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- EDIT MODAL -->
+  <div class="modal fade" id="staticedit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+
+          </button>
+        </div>
+        <div class="modal-body">
+
+          {% include 'blog/update_blog.html' %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <div class="modal fade" id="staticdelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+
+          </button>
+        </div>
+        <div class="modal-body">
+
+          {% include 'blog/delete_blog.html' %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

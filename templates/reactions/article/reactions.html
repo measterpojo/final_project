@@ -1,0 +1,28 @@
+
+
+
+<div class="js-comment-reactions mt-2">
+    <span class="js-like-number text-dark">{{ obj.likes }}</span>
+    {% url 'react-article' pk=obj.id reaction='like' as like_url %}
+    <a title="" class="reaction-key"
+        {% if user.is_authenticated %}
+             data-url="{{ like_url }}"
+        {% else %}
+            href="{% url 'login' %}"
+        {% endif %}
+        >
+        {% include "reactions/article/like.html" %}
+    </a>
+    <span class="ml-4 js-dislike-number text-dark">{{ obj.dislikes }}</span>
+    {% url 'react-article' pk=obj.id reaction='dislike' as dislike_url %}
+    <a title="" class="reaction-key"
+        {% if user.is_authenticated %}
+            data-url="{{ dislike_url }}"
+        {% else %}
+            href="{% url 'login' %}"
+        {% endif %}
+    >
+        {% include "reactions/article/dislike.html" %}
+    </a>
+    </div>
+

@@ -1,0 +1,40 @@
+
+
+
+<div>
+    <div>
+        <div>
+            <div>
+                <h5></h5>
+                <button>
+                    <span>Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {% block email_input %}
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="email">Email:</label>
+                        </div>
+                        <div class="col-9">
+                            <input id="email" class="form-control mr-2 w-100" type="email" name="email" required>
+                            <div class="error text-danger small mt-1"></div>
+                        </div>
+                    </div>
+                    {% endblock %}
+                    <br>
+                    <div class="modal-footer">
+                        <button type="submit"
+                        title="{{ follow }}"
+                        class="btn btn-sm btn-success"
+                        data-url="{% url 'followers:toggle-subscription' %}"
+                        >
+                        {{ follow }}    
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

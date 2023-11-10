@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<form method="POST" enctype="multipart/form-data">
+    
+    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+    <label for="vehicle2"> Is parent category</label><br>
+     
+
+    <!-- Security token -->
+    {% csrf_token %}
+ 
+    <!-- Using the formset -->
+
+    {{ form }}
+    
+
+    <input type="submit" value="Submit">
+
+{% endblock %}

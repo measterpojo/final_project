@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% load comments_tags %}
+
+{% block header %}
+
+    <title>{{ article.title }}</title>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+    <div id="col-9">
+        <section class="mb-5">  
+            {% load_article_detail request article False user %}
+
+            {% render_comments request article %}            
+        </section>
+
+    </div>
+    <div class="col-3">
+
+    </div>
+</div>
+
+{% endblock %}
+

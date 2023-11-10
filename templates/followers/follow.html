@@ -1,0 +1,11 @@
+
+{% load core_tags %}
+{% url 'followers:toggle-subscription' as follow_url %}
+
+
+{% if user.is_authenticated %}
+    {% include 'followers/follow_icon.html' %}
+{% else %}
+    {% include 'followers/follow_icon.html' %}
+{% endif %}
+

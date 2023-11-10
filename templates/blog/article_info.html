@@ -1,0 +1,76 @@
+{% load blog_tags %}
+{% load cache %}
+{% load static %}
+
+
+<div class="media-body my-4 text-wrap shadow border">
+    <div class="row">
+        <div class="d-none d-sm-block col-sm-2 pr-1">
+                <a href="{% url 'profile:profile-view' article.author.profile.id %}">
+                    <img class="rounded-circle ml-2 mt-3" style="height: 100px;"
+                    src="{{ article.author.profile.avatar.url }}" 
+                    >
+                </a>              
+        </div>
+    </div>
+        <div class="col-12 col-sm-10">
+            <div class="row">
+                <div class="col-6">
+                    <h1 class="entry-title mt-1 mx-1">
+                        {% if isindex %}
+                            {% if article.article_order > 0 %}
+                                <a href="{{ article.get_absolute_url }}" rel="bookmark">
+                                    Top 
+                                    {{ article.title }}
+                                </a>
+                            {% else %}
+                                <a href="{{ article.get_absolute_url }}" rel="bookmark">
+                                    {{ article.title }}
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            {{ article.title }}
+                        {% endif %}
+                        <div>
+                            {{ article.views }} views 
+                        </div>                        
+                    </h1>
+                </div>
+            </div>
+            <hr class="mt-0"/>
+            <div class="mx-0 pr-2">
+                <div class="mb-2">
+                    <h6><small>Created on: {{ article.created_time|date:"N d, Y." }}</small></h6>
+                    <h6><small>Modified on: {{ article.edit_time|date:"N d, Y, H:i" }}</small></h6>
+                </div>
+            </div>
+            <div class="entry-content" itemprop="articlebody">
+                {% if isindex %}
+                    {{ article.body }}
+                {% else %}
+                    {{ article.body }}
+                {% endif %}
+            </div>
+
+            {% include 'reactions/article/reactions.html' with obj=article %}
+
+
+            <div class="my-2">
+                <a href="{% url 'blog:category_detail' article.category|lower %}">{{article.category}}</a>
+            </div>
+            <div class="row">
+                    {% if request.user == article.author %}
+                    <a class='nav-link active' data-bs-toggle="modal" data-article-id="{{ article.pk }}" 
+                        data-article-title="{{ article.title }}" data-bs-target="#staticedit">Edit</a>
+                    
+                    <a class='nav-link active' data-bs-toggle="modal" data-article-id="{{ article.pk }}" 
+                        data-article-title="{{ article.title }}" data-bs-target="#staticdelete">Delete</a>
+                    {% endif %}                    
+            </div>
+
+            {% if paginator.num_pages > 1 %}
+                {% include 'pagination.html' %}
+            {% endif %}
+
+    </div>
+</div>
